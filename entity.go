@@ -51,14 +51,14 @@ type PayOuCardRechargeBackReq struct {
 }
 
 type PayOuCardRechargeBackReqData struct {
-	CardNo         string `json:"cardNo" mapstructure:"cardNo"`
-	Status         int    `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
-	OrderNo        string `json:"orderNo" mapstructure:"orderNo"` //商户订单号
-	Currency       string `json:"currency" mapstructure:"currency"`
-	RechargeAmount int    `json:"rechargeAmount" mapstructure:"rechargeAmount"`
-	ReceivedAmount int    `json:"receivedAmount" mapstructure:"receivedAmount"` //option
-	Fee            int    `json:"fee" mapstructure:"fee"`
-	Msg            string `json:"msg" mapstructure:"msg"` //option
+	CardNo         string  `json:"cardNo" mapstructure:"cardNo"`
+	Status         int     `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
+	OrderNo        string  `json:"orderNo" mapstructure:"orderNo"` //商户订单号
+	Currency       string  `json:"currency" mapstructure:"currency"`
+	RechargeAmount float64 `json:"rechargeAmount" mapstructure:"rechargeAmount"`
+	ReceivedAmount float64 `json:"receivedAmount" mapstructure:"receivedAmount"` //option
+	Fee            float64 `json:"fee" mapstructure:"fee"`
+	Msg            string  `json:"msg" mapstructure:"msg"` //option
 }
 
 // 给callback的response
