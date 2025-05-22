@@ -6,8 +6,9 @@ import (
 )
 
 type Client struct {
-	MerchantID string // merchantId
-	AccessKey  string // accessKey
+	MerchantID    string // merchantId
+	RSAPublicKey  string // 公钥
+	RSAPrivateKey string // 私钥
 
 	WithdrawURL string
 
@@ -15,11 +16,12 @@ type Client struct {
 	logger   utils.Logger
 }
 
-func NewClient(logger utils.Logger, merchantID string, accessKey, withdrawURL string) *Client {
+func NewClient(logger utils.Logger, merchantID string, rsaPublicKey, rsaPrivateKey, withdrawURL string) *Client {
 	return &Client{
-		MerchantID:  merchantID,
-		AccessKey:   accessKey,
-		WithdrawURL: withdrawURL,
+		MerchantID:    merchantID,
+		RSAPublicKey:  rsaPublicKey,
+		RSAPrivateKey: rsaPrivateKey,
+		WithdrawURL:   withdrawURL,
 
 		ryClient: resty.New(), //client实例
 		logger:   logger,

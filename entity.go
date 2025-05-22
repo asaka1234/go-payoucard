@@ -2,37 +2,69 @@ package go_payoucard
 
 //---------------------------------------------
 
-type PayOuCardWithdrawReq struct {
-	RequestID  string         `json:"requestId"`
-	MerchantID string         `json:"merchantId"`
-	Data       *PayOuCardData `json:"data"`
+type PayOuCardRechargeReq struct {
+	RequestID  string                   `json:"requestId" mapstructure:"requestId"`   // 请求流水id。20位随机字符
+	MerchantID string                   `json:"merchantId" mapstructure:"merchantId"` // 商户ID。PayouCard为商户分配
+	Data       PayOuCardRechargeReqData `json:"data" mapstructure:"data"`             // 业务数据
+
+	//这个不用业务传.而是sdk来计算
+	//Signature  string                   `json:"signature" mapstructure:"signature"`   // 签名
 }
 
-type PayOuCardData struct {
-	UniqueID string  `json:"uniqueId"`
-	CardNo   string  `json:"cardNo"`
-	Currency string  `json:"currency"`
-	Amount   float64 `json:"amount"` // Using big.Float for precise decimal representation
-	OrderNo  string  `json:"orderNo"`
+// 主要是对这个参数做签名
+type PayOuCardRechargeReqData struct {
+	UniqueID string  `json:"uniqueId" mapstructure:"uniqueId"` //合作商用户的唯一ID (merchantId)
+	CardNo   string  `json:"cardNo" mapstructure:"cardNo"`     //银行卡号
+	Currency string  `json:"currency" mapstructure:"currency"` //充值金额
+	Amount   float64 `json:"amount" mapstructure:"amount"`     //币种(默认USDT)
+	OrderNo  string  `json:"orderNo" mapstructure:"orderNo"`   //商户订单号
 }
 
-type PayOuCardWithdrawRsp struct {
-	RequestID  string                 `json:"requestId"`
-	MerchantID string                 `json:"merchantId"`
-	Signature  string                 `json:"signature"`
-	Success    bool                   `json:"success"`
-	Message    string                 `json:"message"`
-	Code       int                    `json:"code"`
-	Data       *PayOuCardWithdrawData `json:"data"`
+// response
+type PayOuCardRechargeRsp struct {
+	Code       int                       `json:"code"`
+	Message    string                    `json:"message"`
+	Success    bool                      `json:"success"` //是否成功。true：成功；false：失败。 当code=0时为true
+	Data       *PayOuCardRechargeRspData `json:"data"`
+	RequestID  string                    `json:"requestId"`
+	MerchantID string                    `json:"merchantId"`
+	Signature  string                    `json:"signature"`
 }
 
-type PayOuCardWithdrawData struct {
-	CardNo         string  `json:"cardNo"`
-	OrderNo        string  `json:"orderNo"`
-	Currency       string  `json:"currency"`
-	Status         int     `json:"status"`
+type PayOuCardRechargeRspData struct {
+	Status         int     `json:"status"`         //卡片充值状态。1：成功；2：失败；3：处理中
+	CardNo         string  `json:"cardNo"`         //卡号
+	OrderNo        string  `json:"orderNo"`        //商户订单号
+	Currency       string  `json:"currency"`       //币种
+	RechargeAmount float64 `json:"rechargeAmount"` //充值金额
+	ReceivedAmount float64 `json:"receivedAmount"` //到账金额
+	Fee            float64 `json:"fee"`            //手续费(扣充值金额之外的钱)
 	Msg            string  `json:"msg"`
-	RechargeAmount float64 `json:"rechargeAmount"`
-	ReceivedAmount float64 `json:"receivedAmount"`
-	Fee            float64 `json:"fee"`
+}
+
+//--------------callback------------------------------
+
+type PayOuCardRechargeBackReq struct {
+	RequestID  string                       `json:"requestId"`  // 请求流水id。20位随机字符
+	MerchantID string                       `json:"merchantId"` // 商户ID
+	NotifyType int                          `json:"notifyType"` // 通知类型 此通知notifyType = 4
+	Data       PayOuCardRechargeBackReqData `json:"data"`       // 提现数据
+	Signature  string                       `json:"signature"`  // 签名
+}
+
+type PayOuCardRechargeBackReqData struct {
+	CardNo         string `json:"cardNo"`
+	Status         int    `json:"status"`  //卡片充值状态。1：成功；2：失败；
+	OrderNo        string `json:"orderNo"` //商户订单号
+	Currency       string `json:"currency"`
+	RechargeAmount int    `json:"rechargeAmount"`
+	ReceivedAmount int    `json:"receivedAmount"` //option
+	Fee            int    `json:"fee"`
+	Msg            string `json:"msg"` //option
+}
+
+// 给callback的response
+type PayOuCardRechargeBackResp struct {
+	Code    int    `json:"code"`    // 响应状态码
+	Message string `json:"message"` // 响应消息
 }
