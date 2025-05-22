@@ -3,7 +3,6 @@ package go_payoucard
 import (
 	"crypto/tls"
 	"github.com/asaka1234/go-payoucard/utils"
-	"github.com/google/uuid"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -12,7 +11,7 @@ import (
 func (cli *Client) Recharge(req PayOuCardRechargeReq) (*PayOuCardRechargeRsp, error) {
 	//wrap成给上游的req
 	apiReq := PayOuCardRechargeAPIReq{
-		RequestID:  uuid.New().String(),
+		RequestID:  utils.GenRequestID(),
 		MerchantID: cli.MerchantID,
 		Data:       req,
 	}

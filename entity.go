@@ -5,8 +5,8 @@ package go_payoucard
 type PayOuCardRechargeReq struct {
 	UniqueID string  `json:"uniqueId" mapstructure:"uniqueId"` //合作商用户的唯一ID (merchantId)
 	CardNo   string  `json:"cardNo" mapstructure:"cardNo"`     //银行卡号
-	Currency string  `json:"currency" mapstructure:"currency"` //充值金额
-	Amount   float64 `json:"amount" mapstructure:"amount"`     //币种(默认USDT)
+	Currency string  `json:"currency" mapstructure:"currency"` //币种(默认USDT)
+	Amount   float64 `json:"amount" mapstructure:"amount"`     //充值金额
 	OrderNo  string  `json:"orderNo" mapstructure:"orderNo"`   //商户订单号
 }
 
