@@ -1,23 +1,21 @@
 package go_payoucard
 
-//---------------------------------------------
-
+// ---------------------------------------------
+// 这个是业务上游请求参数
 type PayOuCardRechargeReq struct {
-	RequestID  string                   `json:"requestId" mapstructure:"requestId"`   // 请求流水id。20位随机字符
-	MerchantID string                   `json:"merchantId" mapstructure:"merchantId"` // 商户ID。PayouCard为商户分配
-	Data       PayOuCardRechargeReqData `json:"data" mapstructure:"data"`             // 业务数据
-
-	//这个不用业务传.而是sdk来计算
-	//Signature  string                   `json:"signature" mapstructure:"signature"`   // 签名
-}
-
-// 主要是对这个参数做签名
-type PayOuCardRechargeReqData struct {
 	UniqueID string  `json:"uniqueId" mapstructure:"uniqueId"` //合作商用户的唯一ID (merchantId)
 	CardNo   string  `json:"cardNo" mapstructure:"cardNo"`     //银行卡号
 	Currency string  `json:"currency" mapstructure:"currency"` //充值金额
 	Amount   float64 `json:"amount" mapstructure:"amount"`     //币种(默认USDT)
 	OrderNo  string  `json:"orderNo" mapstructure:"orderNo"`   //商户订单号
+}
+
+// 这个是实际发送给上游api的
+type PayOuCardRechargeAPIReq struct {
+	RequestID  string               `json:"requestId" mapstructure:"requestId"`   // 请求流水id。20位随机字符
+	Data       PayOuCardRechargeReq `json:"data" mapstructure:"data"`             // 业务数据
+	MerchantID string               `json:"merchantId" mapstructure:"merchantId"` // 商户ID。PayouCard为商户分配
+	Signature  string               `json:"signature" mapstructure:"signature"`   // 签名 这个不用业务传.而是sdk来计算
 }
 
 // response
@@ -45,22 +43,22 @@ type PayOuCardRechargeRspData struct {
 //--------------callback------------------------------
 
 type PayOuCardRechargeBackReq struct {
-	RequestID  string                       `json:"requestId"`  // 请求流水id。20位随机字符
-	MerchantID string                       `json:"merchantId"` // 商户ID
-	NotifyType int                          `json:"notifyType"` // 通知类型 此通知notifyType = 4
-	Data       PayOuCardRechargeBackReqData `json:"data"`       // 提现数据
-	Signature  string                       `json:"signature"`  // 签名
+	RequestID  string                       `json:"requestId" mapstructure:"requestId"`   // 请求流水id。20位随机字符
+	MerchantID string                       `json:"merchantId" mapstructure:"merchantId"` // 商户ID
+	NotifyType int                          `json:"notifyType" mapstructure:"notifyType"` // 通知类型 此通知notifyType = 4
+	Data       PayOuCardRechargeBackReqData `json:"data" mapstructure:"data"`             // 提现数据
+	Signature  string                       `json:"signature" mapstructure:"signature"`   // 签名
 }
 
 type PayOuCardRechargeBackReqData struct {
-	CardNo         string `json:"cardNo"`
-	Status         int    `json:"status"`  //卡片充值状态。1：成功；2：失败；
-	OrderNo        string `json:"orderNo"` //商户订单号
-	Currency       string `json:"currency"`
-	RechargeAmount int    `json:"rechargeAmount"`
-	ReceivedAmount int    `json:"receivedAmount"` //option
-	Fee            int    `json:"fee"`
-	Msg            string `json:"msg"` //option
+	CardNo         string `json:"cardNo" mapstructure:"cardNo"`
+	Status         int    `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
+	OrderNo        string `json:"orderNo" mapstructure:"orderNo"` //商户订单号
+	Currency       string `json:"currency" mapstructure:"currency"`
+	RechargeAmount int    `json:"rechargeAmount" mapstructure:"rechargeAmount"`
+	ReceivedAmount int    `json:"receivedAmount" mapstructure:"receivedAmount"` //option
+	Fee            int    `json:"fee" mapstructure:"fee"`
+	Msg            string `json:"msg" mapstructure:"msg"` //option
 }
 
 // 给callback的response

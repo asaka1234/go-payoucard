@@ -3,14 +3,23 @@ package go_payoucard
 import (
 	"crypto/tls"
 	"github.com/asaka1234/go-payoucard/utils"
+	"github.com/google/uuid"
 	"github.com/mitchellh/mapstructure"
 )
 
 // 给银行卡充值
+// https://github.com/lifeonearth718/payoucard-doc/blob/main/API-CN.md#%E9%93%B6%E8%A1%8C%E5%8D%A1%E5%85%85%E5%80%BC
 func (cli *Client) Recharge(req PayOuCardRechargeReq) (*PayOuCardRechargeRsp, error) {
+	//wrap成给上游的req
+	apiReq := PayOuCardRechargeAPIReq{
+		RequestID:  uuid.New().String(),
+		MerchantID: cli.MerchantID,
+		Data:       req,
+	}
+
 	// 1. 拿到请求参数，转为map
 	var signDataMap map[string]interface{}
-	mapstructure.Decode(req, &signDataMap)
+	mapstructure.Decode(apiReq, &signDataMap)
 
 	// 2. 计算签名,补充参数
 	signStr := utils.Sign(signDataMap, cli.RSAPrivateKey) //私钥加密
