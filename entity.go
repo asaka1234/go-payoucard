@@ -1,5 +1,13 @@
 package go_payoucard
 
+type PayOuCardInitParams struct {
+	MerchantId    string `json:"merchantId" mapstructure:"merchantId" config:"merchantId"`          // merchantId
+	RSAPublicKey  string `json:"rsaPublicKey" mapstructure:"rsaPublicKey" config:"rsaPublicKey"`    // 公钥
+	RSAPrivateKey string `json:"rsaPrivateKey" mapstructure:"rsaPrivateKey" config:"rsaPrivateKey"` // 私钥
+
+	WithdrawUrl string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"`
+}
+
 // ---------------------------------------------
 // 这个是业务上游请求参数
 type PayOuCardRechargeReq struct {

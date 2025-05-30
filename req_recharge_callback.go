@@ -16,7 +16,7 @@ func (cli *Client) RechargeCallback(req PayOuCardRechargeBackReq, processor func
 	mapstructure.Decode(req, &paramMap)
 	delete(paramMap, "signature") //去掉，用余下的来计算签名
 
-	verifyResult := utils.VerifySign(paramMap, cli.RSAPublicKey, sign)
+	verifyResult := utils.VerifySign(paramMap, cli.Params.RSAPublicKey, sign)
 	if !verifyResult {
 		fmt.Println("签名验证失败")
 		return errors.New("sign verify failed!")

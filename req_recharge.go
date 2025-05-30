@@ -12,7 +12,7 @@ func (cli *Client) Recharge(req PayOuCardRechargeReq) (*PayOuCardRechargeRsp, er
 	//wrap成给上游的req
 	apiReq := PayOuCardRechargeAPIReq{
 		RequestID:  utils.GenRequestID(),
-		MerchantID: cli.MerchantID,
+		MerchantID: cli.Params.MerchantId,
 		Data:       req,
 	}
 
@@ -21,7 +21,7 @@ func (cli *Client) Recharge(req PayOuCardRechargeReq) (*PayOuCardRechargeRsp, er
 	mapstructure.Decode(apiReq, &signDataMap)
 
 	// 2. 计算签名,补充参数
-	signStr := utils.Sign(signDataMap, cli.RSAPrivateKey) //私钥加密
+	signStr := utils.Sign(signDataMap, cli.Params.RSAPrivateKey) //私钥加密
 	signDataMap["signature"] = signStr
 
 	var result PayOuCardRechargeRsp
@@ -33,7 +33,7 @@ func (cli *Client) Recharge(req PayOuCardRechargeReq) (*PayOuCardRechargeRsp, er
 		SetHeaders(getHeaders()).
 		SetResult(&result).
 		SetError(&result).
-		Post(cli.WithdrawURL)
+		Post(cli.Params.WithdrawUrl)
 
 	//fmt.Printf("result: %s\n", string(resp.Body()))
 

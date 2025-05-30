@@ -6,22 +6,15 @@ import (
 )
 
 type Client struct {
-	MerchantID    string // merchantId
-	RSAPublicKey  string // 公钥
-	RSAPrivateKey string // 私钥
-
-	WithdrawURL string
+	Params PayOuCardInitParams
 
 	ryClient *resty.Client
 	logger   utils.Logger
 }
 
-func NewClient(logger utils.Logger, merchantID string, rsaPublicKey, rsaPrivateKey, withdrawURL string) *Client {
+func NewClient(logger utils.Logger, params PayOuCardInitParams) *Client {
 	return &Client{
-		MerchantID:    merchantID,
-		RSAPublicKey:  rsaPublicKey,
-		RSAPrivateKey: rsaPrivateKey,
-		WithdrawURL:   withdrawURL,
+		Params: params,
 
 		ryClient: resty.New(), //client实例
 		logger:   logger,

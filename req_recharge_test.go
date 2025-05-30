@@ -5,10 +5,26 @@ import (
 	"testing"
 )
 
-func TestRecharge(t *testing.T) {
+type VLog struct {
+}
 
+func (l VLog) Debugf(format string, args ...interface{}) {
+	fmt.Printf(format+"\n", args...)
+}
+func (l VLog) Infof(format string, args ...interface{}) {
+	fmt.Printf(format+"\n", args...)
+}
+func (l VLog) Warnf(format string, args ...interface{}) {
+	fmt.Printf(format+"\n", args...)
+}
+func (l VLog) Errorf(format string, args ...interface{}) {
+	fmt.Printf(format+"\n", args...)
+}
+
+func TestRecharge(t *testing.T) {
+	vLog := VLog{}
 	//构造client
-	cli := NewClient(nil, MERCHANT_ID, RAS_PUBLIC_KEY, RAS_PRIVATE_KEY, WITHDRAW_URL)
+	cli := NewClient(vLog, PayOuCardInitParams{MERCHANT_ID, RAS_PUBLIC_KEY, RAS_PRIVATE_KEY, WITHDRAW_URL})
 
 	//发请求
 	resp, err := cli.Recharge(GenRechargeRequestDemo())
