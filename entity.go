@@ -1,11 +1,11 @@
 package go_payoucard
 
 type PayOuCardInitParams struct {
-	MerchantId    string `json:"merchantId" mapstructure:"merchantId" config:"merchantId"`          // merchantId
-	RSAPublicKey  string `json:"rsaPublicKey" mapstructure:"rsaPublicKey" config:"rsaPublicKey"`    // 公钥
-	RSAPrivateKey string `json:"rsaPrivateKey" mapstructure:"rsaPrivateKey" config:"rsaPrivateKey"` // 私钥
+	MerchantId    string `json:"merchantId" mapstructure:"merchantId" config:"merchantId"  yaml:"merchantId"`             // merchantId
+	RSAPublicKey  string `json:"rsaPublicKey" mapstructure:"rsaPublicKey" config:"rsaPublicKey"  yaml:"rsaPublicKey"`     // 公钥
+	RSAPrivateKey string `json:"rsaPrivateKey" mapstructure:"rsaPrivateKey" config:"rsaPrivateKey"  yaml:"rsaPrivateKey"` // 私钥
 
-	WithdrawUrl string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"`
+	WithdrawUrl string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"  yaml:"withdrawUrl"`
 }
 
 // ---------------------------------------------
