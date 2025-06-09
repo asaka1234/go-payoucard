@@ -24,7 +24,7 @@ func (l VLog) Errorf(format string, args ...interface{}) {
 func TestRecharge(t *testing.T) {
 	vLog := VLog{}
 	//构造client
-	cli := NewClient(vLog, PayOuCardInitParams{MERCHANT_ID, RAS_PUBLIC_KEY, RAS_PRIVATE_KEY, WITHDRAW_URL})
+	cli := NewClient(vLog, &PayOuCardInitParams{MERCHANT_ID, RAS_PUBLIC_KEY, RAS_PRIVATE_KEY, WITHDRAW_URL})
 
 	//发请求
 	resp, err := cli.Recharge(GenRechargeRequestDemo())
