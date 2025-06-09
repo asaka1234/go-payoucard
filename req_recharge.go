@@ -31,6 +31,7 @@ func (cli *Client) Recharge(req PayOuCardRechargeReq) (*PayOuCardRechargeRsp, er
 		R().
 		SetBody(signDataMap).
 		SetHeaders(getHeaders()).
+		SetDebug(cli.debugMode).
 		SetResult(&result).
 		SetError(&result).
 		Post(cli.Params.WithdrawUrl)
