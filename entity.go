@@ -5,6 +5,8 @@ type PayOuCardInitParams struct {
 	RSAPublicKey  string `json:"rsaPublicKey" mapstructure:"rsaPublicKey" config:"rsaPublicKey"  yaml:"rsaPublicKey"`     // 公钥
 	RSAPrivateKey string `json:"rsaPrivateKey" mapstructure:"rsaPrivateKey" config:"rsaPrivateKey"  yaml:"rsaPrivateKey"` // 私钥
 
+	UCardRSAPublicKey string `json:"uCardRSAPublicKey" mapstructure:"uCardRSAPublicKey" config:"uCardRSAPublicKey"  yaml:"uCardRSAPublicKey"` // 私钥
+
 	WithdrawUrl string `json:"withdrawUrl" mapstructure:"withdrawUrl" config:"withdrawUrl"  yaml:"withdrawUrl"`
 }
 
