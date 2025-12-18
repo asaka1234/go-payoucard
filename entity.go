@@ -1,5 +1,9 @@
 package go_payoucard
 
+import (
+	"github.com/shopspring/decimal"
+)
+
 type PayOuCardInitParams struct {
 	MerchantId    string `json:"merchantId" mapstructure:"merchantId" config:"merchantId"  yaml:"merchantId"`             // merchantId
 	RSAPublicKey  string `json:"rsaPublicKey" mapstructure:"rsaPublicKey" config:"rsaPublicKey"  yaml:"rsaPublicKey"`     // 公钥
@@ -61,14 +65,14 @@ type PayOuCardRechargeBackReq struct {
 }
 
 type PayOuCardRechargeBackReqData struct {
-	CardNo         string  `json:"cardNo" mapstructure:"cardNo"`
-	Status         int     `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
-	OrderNo        string  `json:"orderNo" mapstructure:"orderNo"` //商户订单号
-	Currency       string  `json:"currency" mapstructure:"currency"`
-	RechargeAmount float64 `json:"rechargeAmount" mapstructure:"rechargeAmount"`
-	ReceivedAmount float64 `json:"receivedAmount" mapstructure:"receivedAmount"` //option
-	Fee            float64 `json:"fee" mapstructure:"fee"`
-	Msg            string  `json:"msg" mapstructure:"msg"` //option
+	CardNo         string          `json:"cardNo" mapstructure:"cardNo"`
+	Status         int             `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
+	OrderNo        string          `json:"orderNo" mapstructure:"orderNo"` //商户订单号
+	Currency       string          `json:"currency" mapstructure:"currency"`
+	RechargeAmount decimal.Decimal `json:"rechargeAmount" mapstructure:"rechargeAmount"`
+	ReceivedAmount decimal.Decimal `json:"receivedAmount" mapstructure:"receivedAmount"` //option
+	Fee            decimal.Decimal `json:"fee" mapstructure:"fee"`
+	Msg            string          `json:"msg" mapstructure:"msg"` //option
 }
 
 // 给callback的response
