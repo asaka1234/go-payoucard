@@ -1,9 +1,5 @@
 package go_payoucard
 
-import (
-	"github.com/shopspring/decimal"
-)
-
 type PayOuCardInitParams struct {
 	MerchantId    string `json:"merchantId" mapstructure:"merchantId" config:"merchantId"  yaml:"merchantId"`             // merchantId
 	RSAPublicKey  string `json:"rsaPublicKey" mapstructure:"rsaPublicKey" config:"rsaPublicKey"  yaml:"rsaPublicKey"`     // 公钥
@@ -44,14 +40,14 @@ type PayOuCardRechargeRsp struct {
 }
 
 type PayOuCardRechargeRspData struct {
-	Status         int             `json:"status"`         //卡片充值状态。1：成功；2：失败；3：处理中
-	CardNo         string          `json:"cardNo"`         //卡号
-	OrderNo        string          `json:"orderNo"`        //商户订单号
-	Currency       string          `json:"currency"`       //币种
-	RechargeAmount decimal.Decimal `json:"rechargeAmount"` //充值金额
-	ReceivedAmount decimal.Decimal `json:"receivedAmount"` //到账金额
-	Fee            decimal.Decimal `json:"fee"`            //手续费(扣充值金额之外的钱)
-	Msg            string          `json:"msg"`
+	Status         int     `json:"status"`         //卡片充值状态。1：成功；2：失败；3：处理中
+	CardNo         string  `json:"cardNo"`         //卡号
+	OrderNo        string  `json:"orderNo"`        //商户订单号
+	Currency       string  `json:"currency"`       //币种
+	RechargeAmount float64 `json:"rechargeAmount"` //充值金额
+	ReceivedAmount float64 `json:"receivedAmount"` //到账金额
+	Fee            float64 `json:"fee"`            //手续费(扣充值金额之外的钱)
+	Msg            string  `json:"msg"`
 }
 
 //--------------callback------------------------------
@@ -65,14 +61,14 @@ type PayOuCardRechargeBackReq struct {
 }
 
 type PayOuCardRechargeBackReqData struct {
-	CardNo         string          `json:"cardNo" mapstructure:"cardNo"`
-	Status         int             `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
-	OrderNo        string          `json:"orderNo" mapstructure:"orderNo"` //商户订单号
-	Currency       string          `json:"currency" mapstructure:"currency"`
-	RechargeAmount decimal.Decimal `json:"rechargeAmount" mapstructure:"rechargeAmount"`
-	ReceivedAmount decimal.Decimal `json:"receivedAmount" mapstructure:"receivedAmount"` //option
-	Fee            decimal.Decimal `json:"fee" mapstructure:"fee"`
-	Msg            string          `json:"msg" mapstructure:"msg"` //option
+	CardNo         string  `json:"cardNo" mapstructure:"cardNo"`
+	Status         int     `json:"status" mapstructure:"status"`   //卡片充值状态。1：成功；2：失败；
+	OrderNo        string  `json:"orderNo" mapstructure:"orderNo"` //商户订单号
+	Currency       string  `json:"currency" mapstructure:"currency"`
+	RechargeAmount float64 `json:"rechargeAmount" mapstructure:"rechargeAmount"`
+	ReceivedAmount float64 `json:"receivedAmount" mapstructure:"receivedAmount"` //option
+	Fee            float64 `json:"fee" mapstructure:"fee"`
+	Msg            string  `json:"msg" mapstructure:"msg"` //option
 }
 
 // 给callback的response
