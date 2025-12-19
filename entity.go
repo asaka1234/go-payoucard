@@ -40,14 +40,15 @@ type PayOuCardRechargeRsp struct {
 }
 
 type PayOuCardRechargeRspData struct {
-	Status         int     `json:"status"`         //卡片充值状态。1：成功；2：失败；3：处理中
-	CardNo         string  `json:"cardNo"`         //卡号
-	OrderNo        string  `json:"orderNo"`        //商户订单号
-	Currency       string  `json:"currency"`       //币种
-	RechargeAmount float64 `json:"rechargeAmount"` //充值金额
-	ReceivedAmount float64 `json:"receivedAmount"` //到账金额
-	Fee            float64 `json:"fee"`            //手续费(扣充值金额之外的钱)
-	Msg            string  `json:"msg"`
+	Status         int    `json:"status"`         //卡片充值状态。1：成功；2：失败；3：处理中
+	CardNo         string `json:"cardNo"`         //卡号
+	OrderNo        string `json:"orderNo"`        //商户订单号
+	Currency       string `json:"currency"`       //币种
+	RechargeAmount string `json:"rechargeAmount"` //充值金额
+	ReceivedAmount string `json:"receivedAmount"` //到账金额
+	ExchangeRate   string `json:"exchangeRate"`   // 汇率
+	Fee            string `json:"fee"`            //手续费(扣充值金额之外的钱)
+	Msg            string `json:"msg"`
 }
 
 //--------------callback------------------------------
